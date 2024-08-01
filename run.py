@@ -23,14 +23,14 @@ def upload():
         if not (is_zip(file) or is_json(file)):
             return Response(json.dumps({'error': 'Unsupported file type'}), status=400, mimetype='application/json')
 
-        filename = file.filename
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(file_path)
+        file_content = file.read()
 
         if is_json(file):
-            with open(file_path, 'r') as f:
-                data = json.load(f)
+            try:
+                data = json.loads(file_content)
                 return Response(json.dumps({'data': data}), status=200, mimetype='application/json')
+            except json.JSONDecodeError:
+                return Response(json.dumps({'error': 'Invalid JSON format'}), status=400, mimetype='application/json')
 
         if is_zip(file):
             data = process_zip(file)
