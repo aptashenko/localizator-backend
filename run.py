@@ -1,10 +1,9 @@
-import os
 import json
+import re
 from app import create_app
-from app.services import process_zip, is_zip, is_json
+from app.services import process_zip, is_zip, is_json, count_symbols, print_strings
 from flask import request, Response
 app = create_app()
-
 @app.route('/')
 def index():
     return 'HELLO'
@@ -27,8 +26,12 @@ def upload():
 
         if is_json(file):
             try:
+                all_texts = []
+                symbols = 0
                 data = json.loads(file_content)
-                return Response(json.dumps({'data': data}), status=200, mimetype='application/json')
+                print_strings(data, all_texts)
+                symbols = count_symbols(all_texts)
+                return Response(json.dumps({'data': {'files': data, 'count': symbols}}), status=200, mimetype='application/json')
             except json.JSONDecodeError:
                 return Response(json.dumps({'error': 'Invalid JSON format'}), status=400, mimetype='application/json')
 
@@ -38,7 +41,6 @@ def upload():
 
     except Exception as e:
         return Response(f'Error: {str(e)}', status=500)
-
 
 if __name__ == '__main__':
     app.run(port=5002)
