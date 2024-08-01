@@ -1,0 +1,70 @@
+{
+  "phone": {
+    "label": "Phone number",
+    "placeholder": "Phone number",
+    "searchPlaceholder": "Start typing country name"
+  },
+  "name": {
+    "label": "Your name",
+    "placeholder": "Enter your name"
+  },
+  "email": {
+    "label": "Email address",
+    "placeholder": "Enter your email address"
+  },
+  "date_of_birth": {
+    "label": "Date of birth",
+    "placeholder": "23 May 2014",
+    "button": "Save"
+  },
+  "time_of_birth": {
+    "label": "Time of birth",
+    "placeholder": "22:00",
+    "skip": "I don't know",
+    "button": "Save"
+  },
+  "gender": {
+    "label": "Your gender",
+    "values": {
+      "Male": "Male",
+      "Female": "Female"
+    }
+  },
+  "place_of_birth": {
+    "label": "Place of birth",
+    "placeholder": "ex. Minsk, Belarus"
+  },
+  "password": {
+    "label": "Password",
+    "placeholder": "Enter password"
+  },
+  "current_password": {
+    "label": "Current password",
+    "placeholder": "Enter your current password"
+  },
+  "create_password": {
+    "label": "Create a password",
+    "placeholder": "Create a password",
+    "help_text_1": "We recommend using complex passwords with a minimum length of 8 characters."
+  },
+  "confirm_password": {
+    "label": "Confirm password",
+    "placeholder": "Repeat password"
+  },
+  "new_password": {
+    "label": "Create a password",
+    "placeholder": "Create a password",
+    "help_text_1": "We recommend using complex passwords with a minimum length of 8 characters."
+  },
+  "new_password_confirmation": {
+    "label": "Confirm password",
+    "placeholder": "Repeat password"
+  },
+  "message": {
+    "label": "Text message",
+    "placeholder": "Please describe your request or issue in detail."
+  },
+  "agreement_1": {
+    "label": "I accept the terms and privacy policy."
+  }
+}
