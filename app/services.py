@@ -1,6 +1,7 @@
 import zipfile
 import json
 import re
+
 def is_zip(file):
     return file.filename.endswith('.zip') or file.content_type == 'application/zip'
 
@@ -23,7 +24,6 @@ def print_strings(items, texts):
     elif isinstance(items, list):
         for sub_item in items:
             print_strings(sub_item, texts)
-
 
 def process_zip(file_path):
     all_files = []
@@ -55,3 +55,4 @@ def process_zip(file_path):
                     print(f"Ошибка при обработке файла {file_info.filename}: {e}")
 
     return {'files': all_files, 'count': symbols_length}
+
