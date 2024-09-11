@@ -47,15 +47,15 @@ def upload():
 
 @app.route('/translate', methods=['POST'])
 def translate():
-    user_text = str(request.json.get('user_text'))
+    user_text = request.json.get('user_text')
     target_language = request.json.get('target_language')
     
     # user_text validation
-    if not user_text
+    if not user_text: 
         return Response('Error: Missing user_text', status=400)
         
     try:
-        json.loads(user_text)
+        json.dumps(user_text)
     except (TypeError, json.JSONDecodeError):
         return Response('Error: user_text is not a valid JSON string', status=400)
 
@@ -63,25 +63,24 @@ def translate():
     if not isinstance(target_language, str) or not target_language.strip():
         return Response('Error: Invalid or missing target_language', status=400)
 
-
     # if validation passed
     try:
         response = openai_client.chat.completions.create(
-            model = "gpt-4o-mini",
+            model = "gpt-4o",
             messages = [
                 {
                     "role": "system",
-                    "content": f"You are a professional translator. Translate the following JSON values' text into {target_language} language. The translated text will be used in a Vue.js i18n library. Translate JSON values strictly, preserving the style, format, and meaning, and do not translate the JSON keys, variables, or HTML code. Respond only with the translated JSON in the correct format, without any additional explanations."
+                    "content": f"You are a professional translator tasked with translating website content for use in a Vue.js i18n library. Translate only JSON values text into {target_language}, maintaining the style, format, and meaning. DO NOT translate JSON keys, variables, or any HTML code. DO NOT format the response as Markdown Provide only the translated JSON WITH UNCHANGED STRUCTURE, without any extra explanations."
                 },
                 {
                     "role": "user", 
-                    "content": user_text
+                    "content": json.dumps(user_text)
                 }
             ]
         )
-        reply = response.choices[0].message.content
+        translated_json = response.choices[0].message.content
 
-        return Response(json.dumps({"reply": reply}), status=200, mimetype='application/json')
+        return Response(json.dumps(translated_json), status=200, mimetype='application/json')
     except Exception as e:
         return Response(f'Error: {str(e)}', status=500)
 
