@@ -54,6 +54,9 @@ def translate():
     if not user_text: 
         return Response('Error: Missing user_text', status=400)
         
+    if len(user_text) > 12000:
+        return Response('Error: text field is too large', status=400)
+        
     try:
         json.dumps(user_text)
     except (TypeError, json.JSONDecodeError):
@@ -66,7 +69,7 @@ def translate():
     # if validation passed
     try:
         response = openai_client.chat.completions.create(
-            model = "gpt-4o",
+            model = "gpt-4o-mini",
             messages = [
                 {
                     "role": "system",
