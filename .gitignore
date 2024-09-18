@@ -2,7 +2,7 @@
 .vscode/
 .venv*/
 venv*/
-.env
+.env.local
 __pycache__/
 app/pycache
 dist/
